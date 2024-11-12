@@ -6,22 +6,22 @@ import (
 	"github.com/slack-go/slack"
 )
 
-func getUserById(userId string) {
+func getUserById(userId string) *slack.User {
     api := slack.New(slack_token())
     user, err := api.GetUserInfo(userId)
     if err != nil {
 	    fmt.Printf("%s\n", err)
-	    return
+	    panic(err)
     }
-    fmt.Printf("ID: %s, Fullname: %s, Email: %s\n", user.ID, user.Profile.RealName, user.Profile.Email)
+	return user
 }
 
-func getUserByEmail(email string) {
+func getUserByEmail(email string) *slack.User {
 	api := slack.New(slack_token())
 	user, err := api.GetUserByEmail(email)
 	if err != nil {
 	    fmt.Printf("%s\n", err)
-	    return
+	    panic(err)
 	}
-	fmt.Printf("ID: %s, Fullname: %s, Email: %s\n", user.ID, user.Profile.RealName, user.Profile.Email)
+	return user
 }
